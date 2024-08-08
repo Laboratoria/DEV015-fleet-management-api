@@ -57,6 +57,298 @@ API REST.
 
 Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en tu proyecto. Piensa en eso al decidir tu estrategia de trabajo.
 
+### Python
+
+- [ ] **Variables (declaración, asignación, ámbito)**
+
+  <details><summary>Links</summary><p>
+
+  * [Variables in Python – Real Python (en inglés)](https://realpython.com/python-variables/)
+  * [Variables in Python - GeeksforGeeks (en inglés)](https://www.geeksforgeeks.org/python-variables/)
+</p></details>
+
+- [ ] **Uso de condicionales (if, elif, ternario)**
+
+  <details><summary>Links</summary><p>
+
+  * [Conditional Statements in Python – Real Python (en inglés)](https://realpython.com/python-conditional-statements/)
+</p></details>
+
+- [ ] **Operadores (identidad, aritméticos, comparación etc)**
+
+  <details><summary>Links</summary><p>
+
+  * [Python Operators - GeeksforGeeks (en inglés)](https://www.geeksforgeeks.org/python-operators/)
+</p></details>
+
+- [ ] **Docstrings (y su diferencia de comentarios)**
+
+  <details><summary>Links</summary><p>
+
+  * [Docstrings - Python Docs (en inglés)](https://docs.python.org/3/tutorial/controlflow.html#documentation-strings)
+</p></details>
+
+- [ ] **Linting (pylint)**
+
+  <details><summary>Links</summary><p>
+
+  * [Pylint - Documentación oficial](https://pylint.pycqa.org/en/latest/)
+  * [Linting Python in Visual Studio Code - Visual Studio Code Docs (en inglés)](https://code.visualstudio.com/docs/python/linting)
+</p></details>
+
+- [ ] **Serialización (y deserialización)**
+
+  <details><summary>Links</summary><p>
+
+  * [Serialize Your Data With Python – Real Python (en inglés)](https://realpython.com/python-serialize-data/)
+</p></details>
+
+#### Tipos de datos
+
+- [ ] **Tipos de datos primitivos (int, float, str, bool)**
+
+  <details><summary>Links</summary><p>
+
+  * [Data Types - Python Docs (en inglés)](https://docs.python.org/3/library/datatypes.html)
+  * [Data types in Python (en inglés)](https://www.educative.io/answers/data-types-in-python)
+</p></details>
+
+- [ ] **Listas (arrays)**
+
+  <details><summary>Links</summary><p>
+
+  * [Lists - Python Docs (en inglés)](https://docs.python.org/3/tutorial/datastructures.html#more-on-lists)
+  * [Lists and Tuples in Python - Real Python (en inglés)](https://realpython.com/python-lists-tuples/)
+</p></details>
+
+- [ ] **Tuples**
+
+  <details><summary>Links</summary><p>
+
+  * [Tuples - Python Docs (en inglés)](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences)
+  * [Lists and Tuples in Python - Real Python (en inglés)](https://realpython.com/python-lists-tuples/)
+</p></details>
+
+- [ ] **Dictionaries (Dicts)**
+
+  <details><summary>Links</summary><p>
+
+  * [Dictionaries - Python Docs (en inglés)](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)
+  * [Dictionaries in Python - Real Python (en inglés)](https://realpython.com/python-dicts/)
+</p></details>
+
+- [ ] **Sets**
+
+  <details><summary>Links</summary><p>
+
+  * [Sets - Python Docs (en inglés)](https://docs.python.org/3/tutorial/datastructures.html#sets)
+  * [Sets in Python - Real Python (en inglés)](https://realpython.com/python-sets/)
+</p></details>
+
+#### Funciones
+
+- [ ] **Conceptos basicos (params, args, default values, return)**
+
+  <details><summary>Links</summary><p>
+
+  * [Python Functions - GeeksforGeeks (en ingles)](https://www.geeksforgeeks.org/python-functions/)
+</p></details>
+
+- [ ] ***args y **kwargs**
+
+  <details><summary>Links</summary><p>
+
+  * [*args and **kwargs in Python - GeeksforGeeks (en inglés)](https://www.geeksforgeeks.org/args-kwargs-python/)
+</p></details>
+
+- [ ] **Cierres (closures)**
+
+  <details><summary>Links</summary><p>
+
+  * [Closures - Python Docs (en inglés)](https://docs.python.org/3/reference/datamodel.html#emulating-closures-and-nested-scope)
+</p></details>
+
+- [ ] **Funciones lambda**
+
+  <details><summary>Links</summary><p>
+
+  * [Lambda Functions - Python Docs (en inglés)](https://docs.python.org/3/tutorial/controlflow.html#lambda-expressions)
+  * [How to Use Python Lambda Functions – Real Python (en inglés)](https://realpython.com/python-lambda/)
+</p></details>
+
+- [ ] **Decoradores**
+
+  <details><summary>Links</summary><p>
+
+  * [Decorators - Python Docs (en inglés)](https://docs.python.org/3/glossary.html#term-decorator)
+  * [Decorators in Python - Geeks for Geeks (en inglés)](https://www.geeksforgeeks.org/decorators-in-python/)
+</p></details>
+
+#### Iteración
+
+- [ ] **Uso de bucles/ciclos (while, for..in)**
+
+  <details><summary>Links</summary><p>
+
+  * [Loops in Python - For, While and Nested Loops - GeeksforGeeks](https://www.geeksforgeeks.org/loops-in-python/)
+  * [Loops - Learn Python - Free Interactive Python Tutorial](https://www.learnpython.org/en/Loops)
+</p></details>
+
+- [ ] **Comprensión de listas**
+
+  <details><summary>Links</summary><p>
+
+  * [List Comprehension - Python Docs (en inglés)](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)
+  * [List Comprehension in Python - GeeksforGeeks (en inglés)](https://www.geeksforgeeks.org/list-comprehensions-in-python/)
+  * [When to Use a List Comprehension in Python – Real Python (en inglés)](https://realpython.com/list-comprehension-python/)
+</p></details>
+
+- [ ] **Técnicas funcionales (map, filter, reduce)**
+
+  <details><summary>Links</summary><p>
+
+  * [Our Guide to Map, Filter, and Reduce Functions in Python - Udacity (en inglés)](https://www.udacity.com/blog/2020/12/our-guide-to-map-filter-and-reduce-functions-in-python.html)
+  * [Map, Filter, Reduce - Learn Python - Free Interactive Python Tutorial (en inglés)](https://www.learnpython.org/en/Map%2C_Filter%2C_Reduce)
+</p></details>
+
+#### Testing en Python
+
+- [ ] **Pruebas unitarias (unit tests, unittest, pytest)**
+
+  <details><summary>Links</summary><p>
+
+  * [unittest - Python Docs (en inglés)](https://docs.python.org/3/library/unittest.html)
+  * [pytest - Documentación oficial](https://docs.pytest.org/en/6.2.x/)
+</p></details>
+
+- [ ] **Uso de mocks (y patch)**
+
+  <details><summary>Links</summary><p>
+
+  * [unittest.mock - Python Docs (en inglés)](https://docs.python.org/3/library/unittest.mock.html)
+  * [Python Mock Library - Real Python (en inglés)](https://realpython.com/python-mock-library/)
+</p></details>
+
+- [ ] **Uso de fixtures**
+
+  <details><summary>Links</summary><p>
+
+  * [pytest fixtures - Documentación oficial](https://docs.pytest.org/en/6.2.x/fixture.html)
+</p></details>
+
+#### Modularización
+
+- [ ] **Módulos**
+
+  <details><summary>Links</summary><p>
+
+  * [Módulos - Python Docs (en inglés)](https://docs.python.org/3/tutorial/modules.html)
+</p></details>
+
+- [ ] **Paquetes**
+
+  <details><summary>Links</summary><p>
+
+  * [Paquetes - Python Docs (en inglés)](https://docs.python.org/3/tutorial/modules.html#packages)
+</p></details>
+
+#### Manejo de dependencias
+
+- [ ] **pip (instalación y uso de paquetes)**
+
+  <details><summary>Links</summary><p>
+
+  * [pip - Python Docs (en inglés)](https://docs.python.org/3/installing/index.html)
+</p></details>
+
+- [ ] **Virtual Environment (ambientes virtuales, virtualenv)**
+
+  <details><summary>Links</summary><p>
+
+  * [venv — Creation of virtual environments — Python 3.12.2 documentation (en inglés)](https://docs.python.org/3/library/venv.html)
+  * [Python Virtual Environments: A Primer – Real Python (en inglés)](https://realpython.com/python-virtual-environments-a-primer/)
+</p></details>
+
+- [ ] **requirements.txt**
+
+  <details><summary>Links</summary><p>
+
+  * [requirements.txt - Documentación oficial](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
+</p></details>
+
+#### Flask
+
+##### Rutas _(Flask)_
+
+- [ ] **Decorador de ruta**
+
+  <details><summary>Links</summary><p>
+
+  * [Routing - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/quickstart/#routing)
+</p></details>
+
+- [ ] **Función de vista**
+
+  <details><summary>Links</summary><p>
+
+  * [View Functions - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/quickstart/#view-functions)
+</p></details>
+
+- [ ] **Reglas de variables (urls dinamica)**
+
+  <details><summary>Links</summary><p>
+
+  * [Variable Rules - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/quickstart/#variable-rules)
+</p></details>
+
+##### Request Object _(Flask)_
+
+- [ ] **Argumentos**
+
+  <details><summary>Links</summary><p>
+
+  * [Request - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/quickstart/#accessing-request-data)
+</p></details>
+
+- [ ] **Headers (cabeceras)**
+
+  <details><summary>Links</summary><p>
+
+  * [Request - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/quickstart/#accessing-request-data)
+</p></details>
+
+##### Response Object _(Flask)_
+
+- [ ] **Partes de la respuesta (status, body, headers)**
+
+  <details><summary>Links</summary><p>
+
+  * [Response - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/quickstart/#about-responses)
+</p></details>
+
+- [ ] **jsonify**
+
+  <details><summary>Links</summary><p>
+
+  * [jsonify - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/api/#flask.json.jsonify)
+</p></details>
+
+##### Testing en Flask _(Flask)_
+
+- [ ] **Configuración de fixtures**
+
+  <details><summary>Links</summary><p>
+
+  * [Testing - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/testing/#fixtures)
+</p></details>
+
+- [ ] **Test Client**
+
+  <details><summary>Links</summary><p>
+
+  * [Testing - Flask Docs (en inglés)](https://flask.palletsprojects.com/en/3.0.x/testing/#sending-requests-with-the-test-client)
+</p></details>
+
 ### Java
 
 - [ ] **Modificadores de acesso (public, private, protected)**
