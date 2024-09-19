@@ -102,7 +102,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000//taxis?{{plateParam}}={{plateQuery}}",
+							"raw": "http://127.0.0.1:5000/taxis?page=2&limit=5",
 							"host": [
 								"http://127.0.0.1:5000/"
 							],
