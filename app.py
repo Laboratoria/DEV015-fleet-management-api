@@ -1,101 +1,73 @@
 from flask import Flask, request, jsonify
-import psycopg2
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+import logging
+
 
 app = Flask(__name__)
 
-# Configurar conexión a la base de datos PostgreSQL en Vercel
-def get_db_connection():
-    return psycopg2.connect(
-        host='ep-proud-scene-a1ctqxby-pooler.ap-southeast-1.aws.neon.tech',
-        database='verceldb', 
-        user='default',  
-        password='LNpT4n5jdOBf', 
-        port='5432'  
-    )
+# conexión a la base de datos PostgreSQL en Vercel
+DATABASE_URL = 'postgresql+psycopg2://default:LNpT4n5jdOBf@ep-proud-scene-a1ctqxby-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb'
 
-@app.route('/api/taxis', methods=['GET'])
+# motor de la base de datos con SQLAlchemy
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Declaración base para los modelos
+Base = declarative_base()
+
+# modelo de la tabla taxis 
+class Taxi(Base):
+    __tablename__ = 'taxis'
+    id = Column(Integer, primary_key=True)
+    plate = Column(String)
+
+logging.basicConfig(level=logging.DEBUG)
+
+
+@app.route('/taxis', methods=['GET'])
 def get_taxis():
+
+    logging.debug('Received request to /taxis')
+
     """
     Endpoint para obtener taxis filtrados por placa y paginados.
-    ---
-    parameters:
-      - name: plate
-        in: query
-        type: string
-        required: false
-        description: Patrón para filtrar taxis por placa
-      - name: page
-        in: query
-        type: integer
-        required: false
-        default: 1
-        description: Número de página
-      - name: limit
-        in: query
-        type: integer
-        required: false
-        default: 10
-        description: Número de taxis por página
-    responses:
-      200:
-        description: Lista de taxis
-        schema:
-          type: array
-          items:
-            properties:
-              id:
-                type: integer
-              plate:
-                type: string
-        examples:
-          application/json: [
-            {"id": 974, "plate": "FNDF-2678"},
-            {"id": 8935, "plate": "GAJG-2446"}
-            {"id": 6772, "plate": "NOCB-3788"}
-
-          ]
-      400:
-        description: Parámetros de página o límite no válidos
-        schema:
-          properties:
-            error:
-              type: string
-        examples:
-          application/json: { "error": "page or limit is not valid" }
-
     """
     plate = request.args.get('plate', '')
     page = int(request.args.get('page', 1))
     limit = int(request.args.get('limit', 10))
     offset = (page - 1) * limit
 
+    logging.debug(f'Filtering by plate: {plate}, Page: {page}, Limit: {limit}')
+
+
     # Validación de los parámetros
     if page < 1 or limit < 1:
         return jsonify({"error": "page or limit is not valid"}), 400
 
     try:
-        # Conexión a la base de datos
-        conn = get_db_connection()
-        cur = conn.cursor()
+      # Using context manager to ensure session is properly closed
+        with SessionLocal() as session:
+            # Consulta con filtro por 'plate' y paginación
+            query = session.query(Taxi).filter(Taxi.plate.ilike(f'%{plate}%')).limit(limit).offset(offset)
+            taxis = query.all()
+            logging.debug(f'Query result: {taxis}')
 
-        # Consulta SQL con filtro por 'plate' y paginación
-        query = """
-        SELECT id, plate
-        FROM taxis
-        WHERE plate ILIKE %s
-        LIMIT %s OFFSET %s
-        """
-        cur.execute(query, (f'%{plate}%', limit, offset))
-        taxis = cur.fetchall()
-
-        cur.close()
-        conn.close()
-
-        # Formatear la respuesta
-        taxi_list = [{'id': taxi[0], 'plate': taxi[1]} for taxi in taxis]
-        return jsonify(taxi_list), 200
+            #retorno de array vacio 
+            if not taxis:
+                logging.debug('No taxis found for the given filter')
+                return jsonify([]), 200
+            
+            # lista de respuesta
+            taxi_list = [{'id': taxi.id, 'plate': taxi.plate} for taxi in taxis]
+            logging.debug(f'Taxis found: {taxi_list}')
+            
+            return jsonify(taxi_list), 200
 
     except Exception as e:
+    
+        logging.error(f'Error fetching taxis: {str(e)}')
         return jsonify({"error": str(e)}), 500
 
 # Iniciar servidor
