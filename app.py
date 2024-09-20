@@ -33,10 +33,10 @@ def get_taxis():
     Endpoint para obtener taxis filtrados por placa y paginados.
     """
     # Obtener los parámetros de la solicitud
-    plate = request.args.get('plate', '')
-    page = int(request.args.get('page', 1))  # Página por defecto es 1
-    limit = int(request.args.get('limit', 10))  # Límite por defecto es 10
-    offset = (page - 1) * limit  # Calcular el offset
+    plate = request.args.get('plateQuery', '')
+    page = int(request.args.get('pageParam', 1))  
+    limit = int(request.args.get('limitParam', 10))  
+    offset = (page - 1) * limit  
 
     logging.debug(f'Filtering by plate: {plate}, Page: {page}, Limit: {limit}')
 
@@ -49,7 +49,10 @@ def get_taxis():
         with SessionLocal() as session:
             # Consulta con filtro por 'plate' y paginación
             query = session.query(Taxi).filter(Taxi.plate.ilike(f'%{plate}%')).limit(limit).offset(offset)
+            print(query)
             taxis = query.all()
+            taxi_list = [{'id': taxi.id, 'plate': taxi.plate} for taxi in taxis]
+
 
             logging.debug(f'Query result: {taxis}')
 

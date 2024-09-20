@@ -55,9 +55,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/taxis",
+							"raw": "{{baseURL}}/taxis",
 							"host": [
-								"http://127.0.0.1:5000/"
+								"{{baseURL}}"
 							],
 							"path": [
 								"taxis"
@@ -102,9 +102,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/taxis?page=2&limit=5",
+							"raw": "{{baseURL}}/taxis?{{plateParam}}={{plateQuery}}",
 							"host": [
-								"http://127.0.0.1:5000/"
+								"{{baseURL}}"
 							],
 							"path": [
 								"taxis"
@@ -155,9 +155,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000//taxis?{{pageParam}}=2&{{limitParam}}=5",
+							"raw": "{{baseURL}}/taxis?{{pageParam}}=2&{{limitParam}}=5",
 							"host": [
-								"http://127.0.0.1:5000/"
+								"{{baseURL}}"
 							],
 							"path": [
 								"taxis"
@@ -212,9 +212,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000//trajectories?taxiId={{taxiId}}&date={{date}}",
+							"raw": "{{baseURL}}/trajectories?taxiId={{taxiId}}&date={{date}}",
 							"host": [
-								"http://127.0.0.1:5000/"
+								"{{baseURL}}"
 							],
 							"path": [
 								"trajectories"
