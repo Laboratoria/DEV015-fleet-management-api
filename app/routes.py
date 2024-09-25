@@ -1,8 +1,6 @@
 from flask import Blueprint, jsonify, request
-from sqlalchemy.orm import session
 from app.models import Taxi
 from app.database import get_db
-
 
 # Create a blueprint for the taxi routes
 taxis_bp = Blueprint('taxis', __name__)
@@ -23,8 +21,8 @@ def get_taxis():
         return jsonify({"error": "page or limit is not valid"}), 400
 
     try:
-        # Use a session with context manager
-        with get_db() as db:  # Replaced session with db from get_db()
+        # Use the context manager to get the session
+        with get_db() as db:
             # Query with filter by 'plate' and pagination
             query = db.query(Taxi).filter(Taxi.plate.ilike(f'%{plate}%')).limit(limit).offset(offset)
             taxis = query.all()

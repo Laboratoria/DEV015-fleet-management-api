@@ -1,0 +1,1 @@
+#lógica denegocio (paginación y filtrado)
