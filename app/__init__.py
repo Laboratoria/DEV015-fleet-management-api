@@ -1,14 +1,10 @@
-#se inicializa el paquete de la aplicacion
-
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from app.databases import db,arr_url
 from app.routes import taxis_bp
-
-db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///taxis.db'  # Cambia esto según tu base de datos
+    app.config['SQLALCHEMY_DATABASE_URI'] = arr_url  # Usa la variable arr_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)  # Inicializa SQLAlchemy con la app

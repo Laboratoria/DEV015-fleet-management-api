@@ -1,7 +1,10 @@
-from app.run_app import startCode
 
-app = startCode()
+from app import create_app
 
-# Start the server
-if __name__ == '__main__':
-    app.run(debug=True) #Debuggear y mirar errores
+app = create_app()
+
+if __name__ == '__main_':
+    """
+    Runs the Flask application in debug mode.
+    """
+    app.run(debug=True)  
