@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
-from sqlalchemy.orm import Session
-from models import Taxi
-from database import get_db
+from sqlalchemy.orm import session
+from app.models import Taxi
+from app.database import get_db
+
 
 # Create a blueprint for the taxi routes
 taxis_bp = Blueprint('taxis', __name__)
