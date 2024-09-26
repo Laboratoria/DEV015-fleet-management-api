@@ -4,7 +4,7 @@ from app.routes import taxis_bp
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = arr_url  # Usa la variable arr_url
+    app.config['SQLALCHEMY_DATABASE_URI'] = arr_url  
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)  # Inicializa SQLAlchemy con la app

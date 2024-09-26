@@ -9,3 +9,5 @@ load_dotenv()
 arr_url = os.getenv('DATABASE')
 
 db = SQLAlchemy()
+def get_db():
+    return db
