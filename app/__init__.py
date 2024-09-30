@@ -1,19 +1,23 @@
 from flask import Flask
-from app.databases import db,arr_url
-from app.routes import taxis_bp
+from config import Config
+
+from databases import db
+from routes import init_routes
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = arr_url  
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    db.init_app(app)  # Inicializa SQLAlchemy con la app
-    
-    # Registro de Blueprints
-    app.register_blueprint(taxis_bp)
+    # Configurar la URL de la base de datos directamente desde Config
+    app.config.from_object(Config)
 
-    # Crear la base de datos
+    # Inicializar la base de datos con la app
+    db.init_app(app)
+
+    # Crear las tablas en la base de datos si no existen
     with app.app_context():
         db.create_all()
+
+    # Inicializar las rutas
+    init_routes(app)
 
     return app
