@@ -1,14 +1,26 @@
+"""
+este modulo define el modelo para taxis
+"""
 from app.database.db import db
 
-class taxi(db.Model):
-      __tablename__ = "taxis"
+class Taxi(db.Model):
+    """
+    Modelo para la tabla de taxis en la base de datos.
+    Cada taxi tiene un identificador único y una placa.
+    """
+    __tablename__ = "taxis"
 
-      id = db.Column(db.Integer, primary_key=True)
-      plate = db.Column(db.String(), nullable=False) 
+    id = db.Column(db.Integer, primary_key=True)  # Identificador único
+    plate = db.Column(db.String(), nullable=False)  # Placa del taxi, obligatorio, máx 20 caracteres
 
-
-      def __init__(self, plate):
+    def __init__(self, plate):
+        """
+        Inicializa un nuevo objeto Taxi con la placa proporcionada.
+        """
         self.plate = plate
- #para debbug
-      def __repr__(self):
+
+    def __repr__(self):
+        """
+        Devuelve una representación legible del objeto Taxi.
+        """
         return f"<Taxi id={self.id}, plate={self.plate}>"
