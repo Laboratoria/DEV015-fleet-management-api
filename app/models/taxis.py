@@ -11,7 +11,7 @@ class Taxi(db.Model):
     __tablename__ = "taxis"
 
     id = db.Column(db.Integer, primary_key=True)  # Identificador único
-    plate = db.Column(db.String(), nullable=False)  # Placa del taxi, obligatorio, máx 20 caracteres
+    plate = db.Column(db.String(), nullable=False)  # Placa del taxi, obligatorio,
 
     def __init__(self, plate):
         """
