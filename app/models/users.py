@@ -1,4 +1,4 @@
-import bcrypt
+import bcrypt #fix
 from app.database.db import db
 
 class Users(db.Model):
