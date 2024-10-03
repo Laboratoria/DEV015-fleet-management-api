@@ -1,4 +1,4 @@
-"""gestión de la tabal ade taxis
+"""gestión de la tabla de taxis
 """
 from flask import jsonify
 from app.models.taxis import Taxi
