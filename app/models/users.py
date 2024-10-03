@@ -1,4 +1,5 @@
-import bcrypt #fix
+""" métodos ára lo ususarios
+"""
 from app.database.db import db
 
 class Users(db.Model):
@@ -13,17 +14,18 @@ class Users(db.Model):
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = self.hash_password(password)  # Hash the password
+        self.password = self.hash_password(password)  # Cifrar la contraseña
 
     def hash_password(self, password):
-        """Hashes the password using bcrypt"""
-        salt = bcrypt.gensalt()
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        return hashed_password.decode('utf-8')  # Store as a string in the database
+        """Cifra la contraseña usando operaciones básicas (sin importar nada externo)"""
+        hashed = ""
+        for char in password:
+            hashed += str(ord(char) + 3)  # Suma 3 al valor ordinal del carácter
+        return hashed
 
     def check_password(self, password):
-        """ comprueba si la contraseña ingresada hacae match con la cifrada"""
-        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+        """Verifica si la contraseña ingresada coincide con la cifrada"""
+        return self.password == self.hash_password(password)
 
     def create(self):
         """Añadir nuevo usuario a la tabla"""
@@ -31,10 +33,10 @@ class Users(db.Model):
         db.session.commit()
 
     def update(self):
-        """ Añadir tablas """
+        """Actualizar el usuario en la tabla"""
         db.session.commit()
 
     def delete(self):
-        """Borrar el usuario de la tabla """
+        """Eliminar el usuario de la tabla"""
         db.session.delete(self)
         db.session.commit()
