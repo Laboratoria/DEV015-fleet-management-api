@@ -20,7 +20,7 @@ class Users(db.Model):
         """Cifra la contraseña usando operaciones básicas (sin importar nada externo)"""
         hashed = ""
         for char in password:
-            hashed += str(ord(char) + 3)  # Suma 3 al valor ordinal del carácter
+            hashed += str(ord(char) + 3)
         return hashed
 
     def check_password(self, password):
