@@ -23,6 +23,7 @@ api_bp = Blueprint('api', __name__)
 # @token_required  # Descomentar si necesitas autenticación
 def endp_taxis():
     """Obtiene una lista de taxis"""
+
     page = request.args.get("page", default=1, type=int)
     limit = request.args.get("limit", default=10, type=int)
     plate = request.args.get("plate")

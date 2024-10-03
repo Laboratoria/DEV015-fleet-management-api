@@ -17,7 +17,7 @@ def get_taxis(page, limit, plate=None):
     query = Taxi.query
 
     if plate:  # Si se proporciona una placa, filtrar por ella
-        query = query.filter(Taxi.plate == plate)
+        query = query.filter(Taxi.plate.ilike(f"%{plate}%"))
 
     taxis_paginated = Taxi.query.paginate(page=page, per_page=limit, error_out=False)
 
