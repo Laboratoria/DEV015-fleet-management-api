@@ -20,12 +20,17 @@ from app.utils import token_required, list_to_excel, send_excel_email
 api_bp = Blueprint('api', __name__)
 
 @api_bp.route("/taxis", methods=["GET"])
-@token_required
+# @token_required  # Descomentar si necesitas autenticación
 def endp_taxis():
     """Obtiene una lista de taxis"""
-    page = request.args.get("page", 1, type=int)
-    limit = request.args.get("limit", 10, type=int)
-    return get_taxis(page, limit)
+    page = request.args.get("page", default=1, type=int)
+    limit = request.args.get("limit", default=10, type=int)
+    plate = request.args.get("plate")
+    if page < 1 or limit < 1:
+        return jsonify({"error": "page and limit must be greater than 0"}), 400
+
+    response = get_taxis(page, limit, plate)
+    return response
 
 @api_bp.route("/trajectories", methods=["GET"])
 @token_required

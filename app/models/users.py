@@ -1,4 +1,4 @@
-""" métodos ára lo ususarios
+""" métodos para lo ususarios
 """
 from app.database.db import db
 
