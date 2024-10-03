@@ -1,9 +1,9 @@
 """
-Configuracion con base de datos
+Claves y variabels de entorno
 """
 
 import os
-from datetime import timedelta
+#from datetime import timedelta
 from dotenv import load_dotenv
 
 load_dotenv()

@@ -1,5 +1,5 @@
 """
-definicion de endpoints
+definicion de rutas y maneja las solicitudes HTTP
 """
 from flask import Flask, request
 #from flask_jwt_extended import JWTManager, get_jwt_identity
