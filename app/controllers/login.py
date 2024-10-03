@@ -9,7 +9,6 @@ from app.models.users import Users
 from app.extensions import bcrypt
 
 
-
 def create_token(email, password):
     """Creates authentication token"""
     user = Users.query.filter(Users.email == email).first()
