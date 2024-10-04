@@ -19,19 +19,7 @@ def get_taxis(page, limit, plate=None):
     if plate:  # Si se proporciona una placa, filtrar por ella
         query = query.filter(Taxi.plate.ilike(f"%{plate}%"))
 
-    taxis_paginated = Taxi.query.paginate(page=page, per_page=limit, error_out=False)
-
-
-
-    """response = {
-        "total": taxis_paginated.total,
-        "page": page,
-        "per_page": limit,
-        "taxis": [
-            {"id": taxi.id, "plate": taxi.plate}
-            for taxi in taxis_paginated.items
-        ]
-    }"""
+    taxis_paginated = query.paginate(page=page, per_page=limit, error_out=False)
 
     return [
         {"id": taxi.id, "plate": taxi.plate}
