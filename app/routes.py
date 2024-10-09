@@ -41,5 +41,6 @@ def get_last_location():
     """Obtiene la última ubicación de cada taxi"""
     page = request.args.get("page", 1, type=int)
     limit = request.args.get("limit", 10, type=int)
+
     return select_last_location(page, limit)
 

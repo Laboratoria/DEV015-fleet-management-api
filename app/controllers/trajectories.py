@@ -53,7 +53,6 @@ def select_trajectories(taxi_id, date=None):
     trajectories = query.all()
     #print ("taxi despues del queryyyyyyyyyy", taxi_id)
     if not trajectories:
-        # Arrojar un error 404 si no se encuentra el taxi_id
         abort(404, description="Taxi ID not found.")
     response = [
         {
@@ -70,7 +69,7 @@ def select_trajectories(taxi_id, date=None):
     return jsonify(response)
 
 def select_last_location(page, limit):
-    """Retorna el historial de la trayectoria para cada taxi"""
+    """Retorna el historial de la trayectoria para cada taxi."""
     try:
         subquery = (
             db.session.query(func.max(Trajectory.id).label("max_id"), Trajectory.taxi_id)
@@ -87,8 +86,8 @@ def select_last_location(page, limit):
 
         response = [
             {
-                "taxiId": taxi.taxi_id,  # Asegúrate de que esto sea correcto
-                "plate": taxi.taxi.plate,  # Asegúrate de que 'plate' exista en Taxi
+                "taxiId": taxi.taxi_id,
+                "plate": taxi.taxi.plate if taxi.taxi else None,
                 "date": taxi.date,
                 "latitude": taxi.latitude,
                 "longitude": taxi.longitude
@@ -96,6 +95,9 @@ def select_last_location(page, limit):
         ], 200
 
         return jsonify(response)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  # Manejo de errores
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500  # Devuelve el error
