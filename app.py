@@ -18,7 +18,7 @@ Base = declarative_base()
 app = Flask(__name__)
 
 # Configuración de base de datos
-DATABASE_URL = "postgres://default:jZ1GA5JOmipk@ep-tiny-sky-a4nu73yw-pooler.us-east-1.aws.neon.tech:5432/verceldb"
+DATABASE_URL = os.getenv('DATABASE_URL')
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
@@ -36,7 +36,6 @@ Base.metadata.create_all(bind=engine)
 @app.route('/taxis', methods=['GET'])
 def get_taxis():
     session = SessionLocal()
-    
     # Obtener parámetros de paginación y filtrado
     plate_filter = request.args.get('plate')
     page = int(request.args.get('page', 1))
@@ -44,7 +43,6 @@ def get_taxis():
 
     # Construir la consulta
     query = session.query(Taxi)
-    
     if plate_filter:
         query = query.filter(Taxi.plate.ilike(f'%{plate_filter}%'))
 
@@ -53,7 +51,6 @@ def get_taxis():
 
     # Preparar la respuesta
     result = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
-    
     # Retornar como JSON
     return jsonify(result)
 
