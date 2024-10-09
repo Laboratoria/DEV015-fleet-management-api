@@ -1,6 +1,6 @@
 # Para poder trabajar con las variables de entorno
 import os 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy 
 # Importa load_dotenv de la librería de python-dotenv, para cargar las variables de entorno
 from dotenv import load_dotenv
@@ -33,10 +33,25 @@ class Taxi(db.Model):
 # Endpoint: responde a la petición 'GET'
 @app.route('/taxis', methods=['GET'])
 def get_taxis():
-    #return "Hola mundo", 200
-    taxis = Taxi.query.all()
 
+    # Obtener params de consulta de la solicitud HTTP
+    plate = request.args.get('plate')
+    page = request.args.get('page', default=1, type=int)
+    limit = request.args.get('limit', default=10, type=int)
+
+    # Realiza consulta en la tabla Taxis
+    database_query = Taxi.query
+
+    # Si plate tiene valor se filtra, si no se asigna a la original => database_query
+    if plate:
+        filtered_query = database_query.filter(Taxi.plate == plate)
+    else:
+        filtered_query = database_query
+
+    # Paginar los resultados  
+    taxis = filtered_query.paginate(page=page, per_page=limit)
+    
     return jsonify([taxi.dictionary() for taxi in taxis]), 200
-
+    
 if __name__ == '__main__':
     app.run(debug=True)
