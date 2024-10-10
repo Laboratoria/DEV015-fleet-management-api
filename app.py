@@ -34,7 +34,7 @@ class Taxi(db.Model):
 @app.route('/taxis', methods=['GET'])
 def get_taxis():
 
-    # Obtener params de consulta de la solicitud HTTP
+    # Params de consulta de la solicitud HTTP
     plate = request.args.get('plate')
     page = request.args.get('page', default=1, type=int)
     limit = request.args.get('limit', default=10, type=int)
@@ -42,11 +42,10 @@ def get_taxis():
     # Realiza consulta en la tabla Taxis
     database_query = Taxi.query
 
-    # Si plate tiene valor se filtra, si no se asigna a la original => database_query
     if plate:
-        filtered_query = database_query.filter(Taxi.plate == plate)
+        filtered_query = database_query.filter(Taxi.plate.like('%'+plate+'%'))
     else:
-        filtered_query = database_query
+        filtered_query = database_query.filter(Taxi.plate == '')
 
     # Paginar los resultados  
     taxis = filtered_query.paginate(page=page, per_page=limit)
