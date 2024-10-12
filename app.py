@@ -33,11 +33,14 @@ class Taxi(db.Model):
 # Endpoint: responde a la petición 'GET'
 @app.route('/taxis', methods=['GET'])
 def get_taxis():
-
+  
     # Params de consulta de la solicitud HTTP
     plate = request.args.get('plate')
     page = request.args.get('page', default=1, type=int)
     limit = request.args.get('limit', default=10, type=int)
+
+    if page > 1 or limit > 10:
+        return jsonify({'error': 'Bad Request: Page or limit is not valid'}), 400
 
     # Realiza consulta en la tabla Taxis
     database_query = Taxi.query
@@ -49,7 +52,7 @@ def get_taxis():
 
     # Paginar los resultados  
     taxis = filtered_query.paginate(page=page, per_page=limit)
-    
+        
     return jsonify([taxi.dictionary() for taxi in taxis]), 200
     
 if __name__ == '__main__':
