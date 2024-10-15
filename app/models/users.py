@@ -8,8 +8,10 @@ class Users(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
-    email = db.Column(db.String())
+    email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String())
+
+    print("id en tabla   --------------",id)
 
     def __init__(self, name, email, password):
         self.name = name
