@@ -6,9 +6,9 @@ class Users(db.Model):
     """Class for table users"""
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String())
-    email = db.Column(db.String(), unique=True, nullable=False)
+    email = db.Column(db.String())
     password = db.Column(db.String())
 
     print("id en tabla   --------------",id)

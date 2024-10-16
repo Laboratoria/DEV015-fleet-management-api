@@ -62,26 +62,44 @@ def create_user():
 def get_users():
     """Obtiene la lista de todos los usuarios paginada"""
     try:
-        page = int(request.args.get("page", 1))  # Intenta convertir el valor de 'page' a entero
-        if page < 1:  # Verifica si el valor de 'page' es menor a 1
+        # Validación del parámetro 'page'
+        page = int(request.args.get("page", 1))
+        if page < 1:
             return jsonify({"error": "Invalid page number, must be 1 or greater"}), 400
     except ValueError:
         return jsonify({"error": "Invalid page value, must be an integer"}), 400
 
-    limit = request.args.get("limit", 10, type=int)
+    try:
+        # Validación del parámetro 'limit'
+        limit = int(request.args.get("limit", 10))
+        if limit < 1:
+            return jsonify({"error": "Invalid limit value, must be 1 or greater"}), 400
+    except ValueError:
+        return jsonify({"error": "Invalid limit value, must be an integer"}), 400
 
     # Llamar a la función que selecciona usuarios paginados
     return select_users(page, limit)
 
 
-@api_bp.route("/users/<uid>", methods=["PUT"])
-# @token_required
+
+
+@api_bp.route("/users/<uid>", methods=["PATCH"])
+# @token_required  # Descomentar si necesitas validar token para autenticación
 def update_user(uid):
     """Actualiza la información de un usuario existente"""
     current_user = request.args.get("currentUser", type=int)
-    data = request.get_json()
+    data = request.get_json()  # Datos enviados en el cuerpo de la solicitud PATCH
 
-    return modify_user(uid, current_user, data)
+    try:
+        # Modificar el usuario llamando a la función que maneja la actualización en la base de datos
+        result = modify_user(uid, current_user, data)
+        if result:
+            return jsonify({"message": "Usuario actualizado con éxito"}), 200
+        else:
+            return jsonify({"error": "No se encontró el usuario o no se pudo actualizar"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Error al actualizar el usuario: {str(e)}"}), 500
+
 
 @api_bp.route("/users/<uid>", methods=["DELETE"])
 # @token_required
