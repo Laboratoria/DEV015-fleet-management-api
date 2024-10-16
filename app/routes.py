@@ -58,15 +58,21 @@ def create_user():
     print (data)
     return new_user (data)
 
-
-
 @api_bp.route("/users", methods=["GET"])
-# @token_required
 def get_users():
     """Obtiene la lista de todos los usuarios paginada"""
-    page = request.args.get("page", 1, type=int)
+    try:
+        page = int(request.args.get("page", 1))  # Intenta convertir el valor de 'page' a entero
+        if page < 1:  # Verifica si el valor de 'page' es menor a 1
+            return jsonify({"error": "Invalid page number, must be 1 or greater"}), 400
+    except ValueError:
+        return jsonify({"error": "Invalid page value, must be an integer"}), 400
+
     limit = request.args.get("limit", 10, type=int)
+
+    # Llamar a la función que selecciona usuarios paginados
     return select_users(page, limit)
+
 
 @api_bp.route("/users/<uid>", methods=["PUT"])
 # @token_required
