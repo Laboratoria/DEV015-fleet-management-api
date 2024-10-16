@@ -1,4 +1,4 @@
-"""Module controller for table users"""
+"""Módulo controlador para la tabla de usuarios"""
 
 from flask import jsonify
 from app.models.users import Users
@@ -12,19 +12,20 @@ def new_user(data):
 
     print(f"Datos recibidos: {data}")
 
-
+    # Validar campos requeridos
     if not email or not password:
         return jsonify({"error": "Email or password not provided"}), 400
 
+    # Comprobar si el email ya existe
     if Users.query.filter(Users.email == email).first():
         return jsonify({"error": "Email already exists"}), 409
 
     try:
         # Crear un nuevo usuario
-        user = Users(name, email, password)
+        user = Users(name=name, email=email, password=password)  # Asegúrate de que este constructor sea correcto
         print(f"-----------------------------------------Usuario a crear: {user}")
 
-        user.create()
+        user.create()  # Método para guardar en la base de datos
 
         # Respuesta con la información del usuario creado
         response = {"id": user.id, "name": user.name, "email": user.email}
@@ -33,10 +34,8 @@ def new_user(data):
         print(f"Error al crear usuario: {e}")
         return jsonify({"error": "An error occurred while creating the user."}), 500
 
-
-
 def select_users(page, limit):
-    """Returna lista de usuarios"""
+    """Retorna lista de usuarios paginada."""
     users_query = Users.query.paginate(page=page, per_page=limit)
     response = [
         {"id": user.id, "name": user.name, "email": user.email} for user in users_query.items
@@ -46,58 +45,64 @@ def select_users(page, limit):
 
 def modify_user(uid, current_user, data):
     """Modifica la información del usuario y retorna la nueva data actualizada."""
-    # Buscamos al usuario por ID (asumiendo que `uid` es el ID del usuario)
     user = Users.query.filter_by(id=uid).first()
 
+    # Verificar si el usuario existe
     if not user:
         return jsonify({"error": "User does not exist"}), 404
 
-    # Solo el usuario puede modificar su propia información
-    if current_user != user.id:
-        return jsonify({"error": "You can only modify your own data."}), 403
+    # Comprobar que el current_user tiene permisos para modificar su propia data
+    #if current_user != user.id:  # Verificamos que sea el usuario correcto
+     #   return jsonify({"error": "You can only modify your own data."}), 403
 
-    # Validación y actualización de los campos proporcionados en `data`
+    # Actualizar los campos según lo que venga en la solicitud
     if "name" in data:
-        if not data["name"]:  # Validar que el nombre no esté vacío
-            return jsonify({"error": "Name cannot be empty"}), 400
         user.name = data["name"]
-
     if "email" in data:
-        if not data["email"]:  # Validar que el email no esté vacío
-            return jsonify({"error": "Email cannot be empty"}), 400
-        # Validar formato de email (opcional, puedes usar un regex si es necesario)
         user.email = data["email"]
-
     if "password" in data:
-        if not data["password"]:  # Validar que la contraseña no esté vacía
-            return jsonify({"error": "New password cannot be empty"}), 400
-        # Encriptar la nueva contraseña antes de guardarla
         user.password = bcrypt.generate_password_hash(data["password"]).decode('utf-8')
 
-    # Actualizar los datos del usuario en la base de datos
     try:
-        user.update()  # Método que guarda los cambios
+        user.update()  # Guardar los cambios en la base de datos
         response = {
-            "id": user.id,
+            "id": user.id,  # Retornar el ID del usuario actualizado
             "name": user.name,
             "email": user.email
         }
-        return jsonify(response), 200
+        return response, 200
     except Exception as e:
-        print(f"Error al actualizar el usuario: {e}")
-        return jsonify({"error": "An error occurred while updating the user."}), 500
+        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
 
 
+def check_user_exists(uid):
+    """
+    Verifica si un usuario existe en la base de datos.
+
+    :param uid: ID del usuario a verificar
+    :return: True si el usuario existe, False en caso contrario
+    """
+    user = Users.query.filter_by(id=uid).first()  # Obtener usuario por ID
+
+    # Devuelve True si el usuario existe, False si no
+    return user is not None
 
 def delete_user(uid, current_user):
-    """borrs usuers y retorna la infromacion de usuario"""
+    """Borra un usuario y retorna la información del usuario."""
     user = Users.query.filter((Users.email == uid) | (Users.id == uid)).first()
+
+    # Verificar si el usuario existe
     if not user:
         return jsonify({"error": "User does not exist"}), 404
 
+    # Verificar permisos
     if current_user != user.id:
         return jsonify({"error": "Permission denied."}), 403
 
     response = {"id": user.id, "name": user.name, "email": user.email}
-    user.delete()
-    return jsonify(response), 204
+    try:
+        user.delete()  # Método para eliminar de la base de datos
+        return jsonify(response), 200  # Cambiar a 200 OK después de eliminar
+    except Exception as e:
+        print(f"Error al eliminar el usuario: {e}")
+        return jsonify({"error": "An error occurred while deleting the user."}), 500

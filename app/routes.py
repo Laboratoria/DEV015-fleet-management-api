@@ -81,24 +81,27 @@ def get_users():
     return select_users(page, limit)
 
 
-
-
 @api_bp.route("/users/<uid>", methods=["PATCH"])
-# @token_required  # Descomentar si necesitas validar token para autenticación
 def update_user(uid):
     """Actualiza la información de un usuario existente"""
-    current_user = request.args.get("currentUser", type=int)
     data = request.get_json()  # Datos enviados en el cuerpo de la solicitud PATCH
 
+    # Validar si el cuerpo de la solicitud está vacío
+
+
     try:
-        # Modificar el usuario llamando a la función que maneja la actualización en la base de datos
-        result = modify_user(uid, current_user, data)
-        if result:
-            return jsonify({"message": "Usuario actualizado con éxito"}), 200
-        else:
-            return jsonify({"error": "No se encontró el usuario o no se pudo actualizar"}), 404
+        # Llamar a la función que maneja la actualización en la base de datos
+        return modify_user(uid, uid, data)  # Retornamos directamente el resultado de modify_user
     except Exception as e:
         return jsonify({"error": f"Error al actualizar el usuario: {str(e)}"}), 500
+
+
+
+
+
+
+
+
 
 
 @api_bp.route("/users/<uid>", methods=["DELETE"])

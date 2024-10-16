@@ -11,7 +11,6 @@ class Users(db.Model):
     email = db.Column(db.String())
     password = db.Column(db.String())
 
-    print("id en tabla   --------------",id)
 
     def __init__(self, name, email, password):
         self.name = name

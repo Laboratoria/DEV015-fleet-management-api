@@ -69,8 +69,8 @@
 			"enabled": true
 		},
 		{
-			"key": "newUserEmail",
-			"value": "newUser@test.com",
+			"key": "newUserEmail5",
+			"value": "newUser@tes5t.com",
 			"type": "default",
 			"enabled": true
 		},
