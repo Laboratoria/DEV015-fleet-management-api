@@ -87,20 +87,14 @@ def update_user(uid):
     data = request.get_json()  # Datos enviados en el cuerpo de la solicitud PATCH
 
     # Validar si el cuerpo de la solicitud está vacío
-
+    if data is None or not data:  # Si no hay cuerpo en la solicitud
+        return jsonify({"error": "No body provided"}), 400  # Retornar error 400 si no hay cuerpo
 
     try:
         # Llamar a la función que maneja la actualización en la base de datos
-        return modify_user(uid, uid, data)  # Retornamos directamente el resultado de modify_user
+        return modify_user(uid, data)  # Retornamos directamente el resultado de modify_user
     except Exception as e:
         return jsonify({"error": f"Error al actualizar el usuario: {str(e)}"}), 500
-
-
-
-
-
-
-
 
 
 

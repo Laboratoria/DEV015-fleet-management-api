@@ -22,7 +22,7 @@ def new_user(data):
 
     try:
         # Crear un nuevo usuario
-        user = Users(name=name, email=email, password=password)  # Asegúrate de que este constructor sea correcto
+        user = Users(name=name, email=email, password=password)
         print(f"-----------------------------------------Usuario a crear: {user}")
 
         user.create()  # Método para guardar en la base de datos
@@ -43,25 +43,25 @@ def select_users(page, limit):
 
     return jsonify(response), 200
 
-def modify_user(uid, current_user, data):
+def modify_user(uid, data):
     """Modifica la información del usuario y retorna la nueva data actualizada."""
     user = Users.query.filter_by(id=uid).first()
-
+    print("AQUI ESTA IUD ------------------------------",uid)
     # Verificar si el usuario existe
     if not user:
         return jsonify({"error": "User does not exist"}), 404
 
-    # Comprobar que el current_user tiene permisos para modificar su propia data
-    #if current_user != user.id:  # Verificamos que sea el usuario correcto
-     #   return jsonify({"error": "You can only modify your own data."}), 403
+    # Comprobar si el cuerpo de la solicitud está vacío (es decir, contiene solo un objeto vacío)
+    if not data or (len(data) == 1 and 'name' not in data):
+        return jsonify({"error": "No body provided"}), 400
+
+    # Comprobar si se está intentando actualizar el email o la contraseña
+    if 'email' in data or 'password' in data:
+        return jsonify({"error": "Cannot update email or password"}), 400
 
     # Actualizar los campos según lo que venga en la solicitud
     if "name" in data:
         user.name = data["name"]
-    if "email" in data:
-        user.email = data["email"]
-    if "password" in data:
-        user.password = bcrypt.generate_password_hash(data["password"]).decode('utf-8')
 
     try:
         user.update()  # Guardar los cambios en la base de datos
@@ -73,6 +73,7 @@ def modify_user(uid, current_user, data):
         return response, 200
     except Exception as e:
         return jsonify({"error": f"An error occurred: {str(e)}"}), 500
+
 
 
 def check_user_exists(uid):
