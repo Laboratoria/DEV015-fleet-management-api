@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "baseURL",
-			"value": "http://localhost:5000",
+			"value": "http://127.0.0.1:5000/",
 			"type": "default",
 			"enabled": true
 		},
@@ -69,8 +69,8 @@
 			"enabled": true
 		},
 		{
-			"key": "newUserEmail",
-			"value": "newUser@test.com",
+			"key": "newUserEmail5",
+			"value": "newUser@tes5t.com",
 			"type": "default",
 			"enabled": true
 		},
